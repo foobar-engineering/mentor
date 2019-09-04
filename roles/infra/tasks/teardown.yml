@@ -1,0 +1,12 @@
+---
+
+- name: Removing user's containers
+  docker_container:
+    name: "{{ 'mentor_dind_user%d' | format(item) }}"
+    state: absent
+  loop: "{{ range(0, (users_num | int)) | list }}"
+
+- name: Remove spyglass container
+  docker_container:
+    name: mentor_spyglass
+    state: absent

@@ -1,0 +1,24 @@
+---
+
+- name: Create spyglass dir
+  file:
+    path: "{{ mentor_root }}/spyglass"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy spyglass static
+  synchronize:
+    src: "spyglass/"
+    dest: "{{ mentor_root }}/spyglass"
+
+- name: Run spyglass container for workshop
+  docker_container:
+    name: "mentor_spyglass"
+    image: nginx:alpine
+    env:
+    volumes:
+      - "{{ mentor_root }}/spyglass:/usr/share/nginx/html"
+    ports:
+      "80:80"

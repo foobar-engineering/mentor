@@ -1,99 +1,19 @@
 ---
-- name: Copy dockerfiles for workshop build
-  copy:
-    src: "{{ item }}"
-    dest: "/srv/{{ item }}"
-  with_items:
-    - Dockerfile
-    - entrypoint.sh
-  tags:
-  - setup
 
-- name: Build workshop image
-  docker_image:
-    name: workshop
-    build:
-      path: /srv
-    source: build
-  tags:
-  - setup
-
-- name: Create user's folders
+- name: Create mentor dir
   file:
-    state: directory
-    path: "/srv/{{ 'user%d'|format(item) }}"
-    mode: 0755
-  loop: "{{ range(0, (users_num | int)) | list }}"
-  tags:
-  - setup
-
-- name: Push workshop code to server
-  synchronize:
-    src: "{{ workshop_src }}"
-    dest: "/srv/{{ 'user%d'|format(item) }}"
-  loop: "{{ range(0, (users_num | int)) | list }}"
-  tags:
-  - setup
-
-- name: Provisioning n containers for class
-  docker_container:
-    name: "{{ 'gotty%d' | format(item) }}"
-    image: workshop
-    privileged: true
-    env:
-      GOTTY_CREDENTIAL: "{{ 'user%d'|format(item) }}:{{ 'pass%d'| format(item) }}"
-      TERM: 'xterm'
-      TZ: "{{ tz }}"
-    volumes:
-      - /srv/{{ 'user%d'|format(item) }}:/workshop
-    ports:
-      "{{'%d' | format(item + 8000)}}:8080"
-  loop: "{{ range(0, (users_num | int)) | list }}"
-  tags:
-    - setup
-
-- name: Create spyglass dir
-  file:
-    path: "/srv/spyglass"
+    path: "{{ mentor_root }}"
     state: directory
     owner: root
     group: root
     mode: 0755
-  tags:
-  - setup
 
+- include: spyglass.yml
+  tags: [setup]
 
-- name: Copy spyglass static
-  copy:
-    src: "static/"
-    dest: "/srv/spyglass"
-  tags:
-  - setup
+- include: workshop.yml
+  tags: [setup]
 
-- name: Provisioning spyglass container for workshop
-  docker_container:
-    name: "spyglass"
-    image: nginx:alpine
-    env:
-    volumes:
-      - "/srv/spyglass:/usr/share/nginx/html"
-    ports:
-      "80:80"
-  tags:
-    - setup
+- include: teardown.yml
+  tags: [never, teardown]
 
-
-- name: Removing n containers for workshop
-  docker_container:
-    name: "{{ 'gotty%d' | format(item) }}"
-    state: absent
-  loop: "{{ range(0, (users_num | int)) | list }}"
-  tags:
-    - teardown
-
-- name: Remove spyglass container
-  docker_container:
-    name: spyglass
-    state: absent
-  tags:
-    - teardown

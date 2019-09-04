@@ -1,9 +1,15 @@
 ---
 - hosts: workshop
+  become: yes
+  become_method: sudo
+  gather_facts: False
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal python-setuptools)
+
+- hosts: workshop
   become: true
   become_method: sudo
-  vars:
-    update_docker_package: yes
   roles:
-    - { role: angstwad.docker_ubuntu, update_docker_package: true, tags: ['docker-init']}
+    - { role: angstwad.docker_ubuntu, update_docker_package: true}
     - { role: infra }

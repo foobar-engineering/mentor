@@ -1,5 +1,6 @@
 ---
 
+mentor_root: "/srv/mentor"
 workshop_src: "/Users/andy/work/patroni-class/ansible"
 users_num: 2
 tz: "Asia/Yekaterinburg"

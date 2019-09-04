@@ -30,6 +30,13 @@ tz: "Asia/Yekaterinburg"
 And then run:
 
 ```
+ansible-playbook -i inventory setup.yml
+```
+
+
+or if you've already have `angstwad.docker_ubuntu` installed just:
+
+```
 ansible-playbook -i inventory setup.yml --tags=setup
 ```
 
@@ -39,7 +46,7 @@ After that 2 roles will be executed:
  1. `angstwad.docker_ubuntu` which will install docker on your Mentor host (you may comment it if you've already installed it before) in `setup.yml`
  2. `infra`, which do all the job:
     - copies Dockerfile to Mentor server for workshop image and build it onsite
-    - creates home dir for every student, puts workshop's code here and mounts it into /workshop in student's dind
+    - creates home dir for every student, puts workshop's code here and mounts it into `/workshop` in student's dind container
     - creates user_num dind containers and exposes ports outside Mentor server
     - creates spyglass container for teacher which serves simple static frontend for managing any student's workflow
 

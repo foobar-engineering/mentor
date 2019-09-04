@@ -1,0 +1,44 @@
+---
+
+- name: Copy dockerfiles for workshop image build
+  copy:
+    src: "{{ item }}"
+    dest: "{{ mentor_root }}/{{ item }}"
+  with_items:
+    - Dockerfile
+    - entrypoint.sh
+
+- name: Build mentor_dind workshop image
+  docker_image:
+    name: mentor_dind
+    build:
+      path: "{{ mentor_root }}"
+    source: build
+
+- name: Create user's folders
+  file:
+    state: directory
+    path: "{{ mentor_root }}/{{ 'user%d'|format(item) }}"
+    mode: 0755
+  loop: "{{ range(0, (users_num | int)) | list }}"
+
+- name: Push workshop code to mentor server
+  synchronize:
+    src: "{{ workshop_src }}"
+    dest: "{{ mentor_root }}/{{ 'user%d'|format(item) }}"
+  loop: "{{ range(0, (users_num | int)) | list }}"
+
+- name: Run user's containers for workshop
+  docker_container:
+    name: "{{ 'mentor_dind_user%d' | format(item) }}"
+    image: mentor_dind
+    privileged: true
+    env:
+      GOTTY_CREDENTIAL: "{{ 'user%d'|format(item) }}:{{ 'pass%d'| format(item) }}"
+      TERM: 'xterm'
+      TZ: "{{ tz }}"
+    volumes:
+      - "{{ mentor_root }}/{{ 'user%d'|format(item) }}:/workshop"
+    ports:
+      "{{'%d' | format(item + 8000)}}:8080"
+  loop: "{{ range(0, (users_num | int)) | list }}"
