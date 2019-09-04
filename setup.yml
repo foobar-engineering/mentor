@@ -1,0 +1,9 @@
+---
+- hosts: workshop
+  become: true
+  become_method: sudo
+  vars:
+    update_docker_package: yes
+  roles:
+   # - { role: angstwad.docker_ubuntu, update_docker_package: true, tags: ['docker-init']}
+    - { role: infra }

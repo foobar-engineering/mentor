@@ -1,0 +1,8 @@
+local_settings
+ansible_gitlab.key
+*.retry
+*.htpasswd
+*.DS_Store
+.idea
+ansible.cfg
+hosts
