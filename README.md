@@ -12,15 +12,20 @@ Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.d
 
 # Installation
 
+![example gif](https://mastery-public.s3.amazonaws.com/mentor.gif)
+
 Define your hostname in `inventory` file.
 
 Define following defaults in `roles\infra\defaults\main.yaml`
 
 ```
+mentor_root: "/srv/mentor"
 workshop_src: "/Users/andy/work/patroni-class/ansible"
 users_num: 2
 tz: "Asia/Yekaterinburg"
 ```
+`mentor_root` is server dir on a server where Mentor will work.
+
 `workshop_src` is local dir on a machine where you run Mentor which will be copied to mentor server and mounted to student's container.
 
 `users_num` is a number of students allowed to work on Mentor server. After init each student will get a host with basic authentication from `user0:pass0@example.com` till `user1:pass1@example.com` ... `userN:passN@example.com`, where N = `users_num`.
