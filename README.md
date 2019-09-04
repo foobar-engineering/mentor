@@ -5,10 +5,10 @@ Mentor is a browser-based tool to make your workshops and masterclasses simple t
 # Concept
 The basic idea is simple. We are deploying a bunch of docker-in-docker containers each of them emulates a "real server", these dind containers has gotty on board which allows us to use any browser with web socket support as ssh client with simple basic auth builtin.
 
-The teacher (person who is mentoring at master class or workshop) has access to any student's environment with the ability to manage student's workflow.
+The teacher (person who is mentoring at master class or workshop) has access to any student's environment with the ability to manage student's workflow using spyglass (simple SPA built with React served by container with same name).
 
 # Requirements
-Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.docker_ubuntu` installed on your host and debian-based server, root access.
+Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.docker_ubuntu` installed on your host and debian-based server, root access. If you are want to use spyglass you also have to install extension  called Multipass https://krtek4.github.io/MultiPass/ into your favourite browser (doesn't work for safari https://github.com/krtek4/MultiPass/issues/53). Multipass allow you save all credentials for basic auth for all students in one place.
 
 # Installation
 
