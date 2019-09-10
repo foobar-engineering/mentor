@@ -1,5 +1,4 @@
 ---
-
 - name: Removing user's containers
   docker_container:
     name: "{{ 'mentor_dind_user%d' | format(item) }}"
@@ -9,4 +8,9 @@
 - name: Remove spyglass container
   docker_container:
     name: mentor_spyglass
+    state: absent
+
+- name: Remove mentor root
+  file:
+    path: "{{ mentor_root }}"
     state: absent

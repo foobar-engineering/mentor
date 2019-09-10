@@ -42,3 +42,18 @@
     ports:
       "{{'%d' | format(item + 8000)}}:8080"
   loop: "{{ range(0, (users_num | int)) | list }}"
+
+- name: Generate config for MultiPass
+  set_fact:
+    multipass: "{{ multipass|default([]) +
+       [
+       {'password': 'pass%d' | format(item),
+       'priority':'1',
+       'url': '{{ mentor_base_url }}:%d' | format(item + 8000),
+       'username': 'user%d'|format(item) }
+     ] }}"
+  loop: "{{ range(0, (users_num | int)) | list }}"
+
+- name: Here is config for MultiPass
+  debug:
+    msg: "{{ multipass }}"
