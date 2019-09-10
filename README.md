@@ -90,5 +90,8 @@ At the end clean it up using
 ansible-playbook -i inventory setup.yml --tags=teardown
 ```
 
+# Demo
+![example2 gif](https://mastery-public.s3.amazonaws.com/mentor2-720.gif)
+
 # Misc
 Mentor was created as a part of pgconf2019 workshop [Simple postgres HA using patroni, ansible, s3, wal-g](https://pgconf.ru/2019/242821)
