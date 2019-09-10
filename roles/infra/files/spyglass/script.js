@@ -67,7 +67,6 @@
     $item.append(
       $('<div>').addClass('title js-expand-terminal')
                 .text(buildTerminalTitle(user, config))
-                .attr('title', ['pass: ', user.pass].join(''))
     );
 
     $item.append(
@@ -85,8 +84,7 @@
   function buildUser(port, id) {
     return {
       port: port,
-      userName: ['user', id].join(''),
-      pass: md5(id + '').substring(0,4)
+      userName: ['user', id].join('')
     }
   }
 
