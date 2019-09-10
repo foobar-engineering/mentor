@@ -13,6 +13,7 @@
     name: mentor_dind
     build:
       path: "{{ mentor_root }}"
+      pull: false
     source: build
 
 - name: Create user's folders
@@ -30,7 +31,7 @@
 
 - name: Run user's containers for workshop
   docker_container:
-    name: "{{ 'mentor_dind_user%d' | format(item) }}"
+    name: "{{ mentor_user_container }}{{'%d' | format(item) }}"
     image: mentor_dind
     privileged: true
     env:

@@ -23,14 +23,30 @@ mentor_root: "/srv/mentor"
 workshop_src: "/Users/andy/work/patroni-class/ansible"
 users_num: 2
 tz: "Asia/Yekaterinburg"
+mentor_base_url: "http://{{ inventory_hostname }}"
+mentor_container_prefix: "mentor"
+mentor_user_container: "{{ mentor_container_prefix }}_dind_user"
+mentor_spyglass_container: "{{ mentor_container_prefix }}_spyglass"
 ```
+
 `mentor_root` is server dir on a server where Mentor will work.
 
 `workshop_src` is local dir on a machine where you run Mentor which will be copied to mentor server and mounted to student's container.
 
-`users_num` is a number of students allowed to work on Mentor server. After init each student will get a host with basic authentication from `user0:pass0@example.com` till `user1:pass1@example.com` ... `userN:passN@example.com`, where N = `users_num`.
+`users_num` is a number of students allowed to work on Mentor server. After init each student will get a host with basic authentication from `user0:pass0@example.com` till 
+
+`user1:pass1@example.com` ... `userN:passN@example.com`, where N = `users_num`.
 
 `tz` is local timezone for student's container
+
+`mentor_base_url` is url for your Mentor environment
+
+`mentor_container_prefix` is prefix for distinguis containers on host
+
+`mentor_user_container` is student's containers name
+
+`mentor_spyglass_container` is teacher's container name
+
 
 And then run:
 
@@ -54,9 +70,11 @@ After that 2 roles will be executed:
     - creates home dir for every student, puts workshop's code here and mounts it into `/workshop` in student's dind container
     - creates user_num dind containers and exposes ports outside Mentor server
     - creates spyglass container for teacher which serves simple static frontend for managing any student's workflow
+    - generates MultiPass config in console for you
 
 # Workflow
-The teacher creates as many users as required, usually about 16-32, and assigning credentials at the very beginning of the workshop to students (either print them on paper or sending via messages).
+The teacher creates as many users as required, usually about 16-32, and assigning credentials at the very beginning of the workshop to students (either print them on paper or sending via messengers).
+
 By default credentials looks like: `user0:pass0@example.com`, you may change it to something more sophisticated by changing that `"{{ 'user%d'|format(item) }}:{{ 'pass%d'| format(item) }}"` in `roles\infra\tasks\main.yaml`
 
 Students check if everything is working in any modern browser, even if gotty is perfect sometimes personal security settings can cause a hassle, please, ensure every ad blocker is disabled.

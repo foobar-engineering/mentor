@@ -13,9 +13,14 @@
     src: "spyglass/"
     dest: "{{ mentor_root }}/spyglass"
 
+- name: Copy spyglass templates
+  template:
+    src: "spyglass/index.html.j2"
+    dest: "{{ mentor_root }}/spyglass/index.html"
+
 - name: Run spyglass container for workshop
   docker_container:
-    name: "mentor_spyglass"
+    name: "{{ mentor_spyglass_container }}"
     image: nginx:alpine
     env:
     volumes:
