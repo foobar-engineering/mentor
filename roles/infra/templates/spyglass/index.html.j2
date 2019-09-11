@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mentor | Spyglass</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+
+    <meta name="theme-color" content="#b1624d" />
+</head>
+
+<body>
+    <div class="page-wrapper">
+      <div class="page">
+        <div class="header">
+          <div class="copyrights">Mentor is powered for you by&nbsp;<a href="http://mastery.pro" target="_blank">mastery.pro</a></div>
+          <div class="nav-bar">
+            <a class="nav-bar-link js-nav-bar-link" href="#settings">Settings</a>
+            <a class="nav-bar-link js-nav-bar-link" href="#terminals">Terminals</a></div>
+        </div>
+        <div class="content">
+          <div class="js-content-part content-part active" id="settings">
+            <form class="settings-form" id="js-settings-form">
+              <div class="form-item">
+                  <label><span>Host:</span>
+                      <input class="input-field" name="host" value="{{ inventory_hostname }}">
+                  </label>
+              </div>
+              <div class="form-item">
+                  <label><span>Port from:</span>
+                      <input type="number" class="input-field" name="portFrom" value="8000">
+                  </label>
+              </div>
+              <div class="form-item">
+                  <label><span>Ports count:</span>
+                      <input type="number" class="input-field" name="portsCont" value="2">
+                  </label>
+              </div>
+            </form>
+          </div>
+          <div class="js-content-part content-part" id="terminals">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <script type="text/javascript" src="/md5.js"></script>
+    <script type="text/javascript" src="/script.js"></script>
+</body>
+</html>

@@ -8,7 +8,8 @@ The basic idea is simple. We are deploying a bunch of docker-in-docker container
 The teacher (person who is mentoring at master class or workshop) has access to any student's environment with the ability to manage student's workflow using spyglass (simple SPA built with React served by container with same name).
 
 # Requirements
-Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.docker_ubuntu` installed on your host and debian-based server, root access. If you are want to use spyglass you also have to install extension  called Multipass https://krtek4.github.io/MultiPass/ into your favourite browser (doesn't work for safari https://github.com/krtek4/MultiPass/issues/53). Multipass allow you save all credentials for basic auth for all students in one place.
+Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.docker_ubuntu` installed on your host and debian-based server, root access. Role could be installed via `sudo ansible-galaxy install angstwad.docker_ubuntu`.
+If you are want to use spyglass you also have to install extension  called Multipass https://krtek4.github.io/MultiPass/ into your favourite browser (doesn't work for safari https://github.com/krtek4/MultiPass/issues/53). Multipass allow you save all credentials for basic auth for all students in one place.
 
 # Installation
 
@@ -16,7 +17,7 @@ Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.d
 
 Define your hostname in `inventory` file.
 
-Define following defaults in `roles\infra\defaults\main.yaml`
+Define following defaults in `roles/infra/defaults/main.yaml`
 
 ```
 mentor_root: "/srv/mentor"
