@@ -4,7 +4,6 @@ FROM docker:18.09.1-dind
 RUN apk update && apk add bash htop vim iftop iotop iperf net-tools iputils postgresql-client git tmux ansible openssh-keygen openssh tzdata py-pip
 
 RUN pip3 install docker-compose
-RUN ansible-galaxy install savagegus.ansible-consul
 
 ## build gotty
 ENV GLIBC_VERSION=2.26-r0 LANG=C.UTF-8
