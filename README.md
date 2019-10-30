@@ -2,6 +2,9 @@
 
 Mentor is a browser-based tool to make your workshops and masterclasses simple to deliver. Very often when you want to perform a workshop you need to prepare a working environment for your students, usually, it takes some time either at home or even in the auditorium. And it is rather difficult to do due to several reasons.
 
+# Demo
+![example2 gif](https://mastery-public.s3.amazonaws.com/ezgif-5-c5188cad21df.gif)
+
 # Concept
 The basic idea is simple. We are deploying a bunch of docker-in-docker containers each of them emulates a "real server", these dind containers has gotty on board which allows us to use any browser with web socket support as ssh client with simple basic auth builtin.
 
@@ -90,9 +93,6 @@ At the end clean it up using
 ```
 ansible-playbook -i inventory setup.yml --tags=teardown
 ```
-
-# Demo
-![example2 gif](https://mastery-public.s3.amazonaws.com/ezgif-5-c5188cad21df.gif)
 
 # Misc
 Mentor was created as a part of pgconf2019 workshop [Simple postgres HA using patroni, ansible, s3, wal-g](https://pgconf.ru/2019/242821)
