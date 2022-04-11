@@ -11,5 +11,5 @@
   become: true
   become_method: sudo
   roles:
-    - { role: angstwad.docker_ubuntu, update_docker_package: true}
+    - { role: geerlingguy.docker}
     - { role: infra }

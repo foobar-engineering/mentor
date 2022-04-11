@@ -11,7 +11,7 @@ The basic idea is simple. We are deploying a bunch of docker-in-docker container
 The teacher (person who is mentoring at master class or workshop) has access to any student's environment with the ability to manage student's workflow using spyglass (simple SPA built with React served by container with same name).
 
 # Requirements
-Because Mentor is ansible based you need ansible > 2.8, ansible role `angstwad.docker_ubuntu` installed on your host and debian-based server, root access. Role could be installed via `sudo ansible-galaxy install angstwad.docker_ubuntu`.
+Because Mentor is ansible based you need ansible > 2.8, ansible role `geerlingguy.docker` installed on your host and debian-based server, root access. Role could be installed via `sudo ansible-galaxy install geerlingguy.docker`.
 If you are want to use spyglass you also have to install extension  called Multipass https://krtek4.github.io/MultiPass/ into your favourite browser (doesn't work for safari https://github.com/krtek4/MultiPass/issues/53). Multipass allow you save all credentials for basic auth for all students in one place.
 
 # Installation
@@ -59,7 +59,7 @@ ansible-playbook -i inventory setup.yml
 ```
 
 
-or if you've already have `angstwad.docker_ubuntu` installed just:
+or if you've already have `geerlingguy.docker` installed just:
 
 ```
 ansible-playbook -i inventory setup.yml --tags=setup
@@ -68,7 +68,7 @@ ansible-playbook -i inventory setup.yml --tags=setup
 # How it works
 
 After that 2 roles will be executed:
- 1. `angstwad.docker_ubuntu` which will install docker on your Mentor host (you may comment it if you've already installed it before) in `setup.yml`
+ 1. `geerlingguy.docker` which will install docker on your Mentor host (you may comment it if you've already installed it before) in `setup.yml`
  2. `infra`, which do all the job:
     - copies Dockerfile to Mentor server for workshop image and build it onsite
     - creates home dir for every student, puts workshop's code here and mounts it into `/workshop` in student's dind container
