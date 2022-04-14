@@ -35,7 +35,7 @@
     image: mentor_dind
     privileged: true
     env:
-      GOTTY_CREDENTIAL: "{{ 'user%d'|format(item) }}:{{ 'pass%d'| format(item) }}"
+      GOTTY_CREDENTIAL: "{{ 'user%d'|format(item) }}:{{ ('%d'|format(item)|hash('md5'))[:2] }}"
       TERM: 'xterm'
       TZ: "{{ tz }}"
     volumes:
@@ -48,7 +48,7 @@
   set_fact:
     multipass: "{{ multipass|default([]) +
        [
-       {'password': 'pass%d' | format(item),
+       {'password':('%d'|format(item)|hash('md5'))[:2],
        'priority':'1',
        'url': '{{ mentor_base_url }}:%d' | format(item + 8000),
        'username': 'user%d'|format(item) }

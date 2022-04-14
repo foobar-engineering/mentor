@@ -6,3 +6,4 @@ ansible_gitlab.key
 .idea
 ansible.cfg
 hosts
+inventory
